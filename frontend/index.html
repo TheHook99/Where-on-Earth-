@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess the Country</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section id="welcome" class="welcome-panel">
+      <div class="brand-mark">🌍</div>
+      <h1>Guess the Country</h1>
+      <p class="intro-text">Choose a geographic area and start guessing countries. The map colors show how close each guess is.</p>
+
+      <div class="region-picker">
+        <div class="region-map-stage" id="regionMapStage" aria-hidden="true"></div>
+
+        <div class="region-grid" aria-label="Choose geographic area">
+        <button class="region-card is-featured is-active" type="button" data-level="global">
+          <span class="region-icon">🌐</span>
+          <span class="region-name">Global</span>
+        </button>
+        <button class="region-card" type="button" data-level="africa">
+          <span class="region-icon">🌍</span>
+          <span class="region-name">Africa</span>
+        </button>
+        <button class="region-card" type="button" data-level="asia">
+          <span class="region-icon">🏔️</span>
+          <span class="region-name">Asia</span>
+        </button>
+        <button class="region-card" type="button" data-level="europe">
+          <span class="region-icon">🏰</span>
+          <span class="region-name">Europe</span>
+        </button>
+        <button class="region-card" type="button" data-level="americas">
+          <span class="region-icon">🧭</span>
+          <span class="region-name">Americas</span>
+        </button>
+        </div>
+      </div>
+
+      <p class="attempt-note">Unlimited tries</p>
+    </section>
+
+    <section id="game" class="game-layout" hidden>
+      <aside class="control-panel">
+        <div>
+          <div class="brand-line">🌍 Guess the Country</div>
+          <p id="level" class="meta-text"></p>
+          <div class="game-stats">
+            <p id="attempts" class="attempt-counter"></p>
+            <p id="timer" class="timer-counter">Time: 00:00</p>
+          </div>
+        </div>
+
+        <form class="guess-form" onsubmit="sendGuess(event)">
+          <label for="countryInput">Country name in English</label>
+          <div class="autocomplete">
+            <input
+              id="countryInput"
+              type="text"
+              placeholder="Example: Egypt"
+              autocomplete="off"
+              aria-autocomplete="list"
+              aria-controls="suggestions"
+            >
+            <ul id="suggestions" class="suggestions" role="listbox"></ul>
+          </div>
+          <button class="primary-btn" type="submit">Send</button>
+        </form>
+
+        <p id="result" class="result-message" aria-live="polite"></p>
+        <button id="retryBtn" class="secondary-btn" type="button" onclick="resetGame()" hidden>Try again</button>
+
+        <div class="map-key" aria-label="Map color key"></div>
+      </aside>
+
+      <div class="map-panel">
+        <div id="map"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
