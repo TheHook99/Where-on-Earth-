@@ -1,14 +1,16 @@
-from flask import Flask, request, jsonify, send_from_directory
+﻿from flask import Flask, request, jsonify, send_from_directory
 import json
 import random
 import math
 import os
 
-app = Flask(__name__, static_folder="../frontend", static_url_path="")
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(BASE_DIR, "..", "frontend")
+DATA_DIR = os.path.join(BASE_DIR, "..", "data")
 COUNTRIES_FILE = os.path.join(BASE_DIR, "countries_with_borders.json")
-WORLD_GEOJSON_FILE = os.path.join(BASE_DIR, "..", "data", "world.geojson")
+WORLD_GEOJSON_FILE = os.path.join(DATA_DIR, "world.geojson")
+
+app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path="")
 
 CONTINENT_LEVELS = {
     "africa": {"Africa"},
@@ -159,7 +161,7 @@ def guess():
 
 @app.route("/data/<path:filename>")
 def data_files(filename):
-    return send_from_directory("../data", filename)
+    return send_from_directory(DATA_DIR, filename)
 
 
 @app.route("/reset", methods=["POST"])
@@ -173,3 +175,5 @@ def reset():
 if __name__ == "__main__":
     init_game()
     app.run(debug=True)
+
+
